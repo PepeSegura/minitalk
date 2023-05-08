@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
+#    By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/05/06 20:56:37 by psegura-         ###   ########.fr        #
+#    Updated: 2023/05/07 21:17:11 by pepe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,11 @@ NAME_S = server
 
 SRCS_C =										\
 		srcs/client/client.c					\
+		srcs/client/utils.c						\
 		
 SRCS_S =										\
 		srcs/server/server.c					\
+		srcs/server/utils.c						\
 												\
 
 OBJS_C = $(SRCS_C:%.c=objs/%.o)
