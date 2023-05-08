@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 14:49:54 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/08 12:23:48 by pepe             ###   ########.fr       */
+/*   Updated: 2023/05/08 14:19:14 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ typedef struct s_cosas {
 
 /* utils.c */
 char	*decimalToBinary(int num);
-int		
-(char *binary);
+int		binaryToInt(char *binary);
 
 /* errors.c */
 
