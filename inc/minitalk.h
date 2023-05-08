@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 14:49:54 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/08 14:19:14 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/05/09 00:10:15 by pepe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 typedef struct s_cosas {
 	int				len;
 	char			size_next[33];
+	char			*msg;
+	char			*result;
+	int				int_next;
+	int				index_buffer;
 	char			buffer[9];
 	unsigned char	letter;	
 }	t_cosas;
