@@ -3,37 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:41:43 by pepe              #+#    #+#             */
-/*   Updated: 2023/05/07 21:16:09 by pepe             ###   ########.fr       */
+/*   Updated: 2023/05/18 18:27:31 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*decimalToBinary(int num)
+char	*decimalToBinary(int num, int size)
 {
 	int		temp;
 	int		len;
-	int		MAX_BITS;
 	char	*binary;
 	int		i;
 
 	temp = num;
 	len = 0;
-	MAX_BITS = 32;
 	while (temp > 0)
 	{
 		temp = temp / 2;
 		len++;
 	}
-	binary = (char *)malloc((MAX_BITS + 1) * sizeof(char));
-	for (int i = 0; i < MAX_BITS - len; i++)
+	binary = (char *)malloc((size + 1) * sizeof(char));
+	for (int i = 0; i < size - len; i++)
 	{
 		binary[i] = '0';
 	}
-	i = MAX_BITS - 1;
+	i = size - 1;
 	while (num > 0)
 	{
 		if (num % 2 == 0)
@@ -43,7 +41,7 @@ char	*decimalToBinary(int num)
 		num = num / 2;
 		i--;
 	}
-	binary[MAX_BITS] = '\0';
+	binary[size] = '\0';
 	return (binary);
 }
 

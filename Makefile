@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+         #
+#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/05/07 21:17:11 by pepe             ###   ########.fr        #
+#    Updated: 2023/05/18 18:52:33 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ NAME_S = server
 SRCS_C =										\
 		srcs/client/client.c					\
 		srcs/client/utils.c						\
+		srcs/client/init_data.c					\
+												\
 		
 SRCS_S =										\
 		srcs/server/server.c					\

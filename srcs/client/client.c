@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:44:32 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/09 00:18:37 by pepe             ###   ########.fr       */
+/*   Updated: 2023/05/18 18:49:20 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+t_client	g_c;
 
 void	append_char_bits_to_string(char c, char *string, int *index)
 {
@@ -60,7 +62,7 @@ int	parse_input(int argc, char **argv)
 	return (ft_atoi(argv[1]));
 }
 
-void	send_signals(int server_pid, char *str)
+void	send_signals(int pid_server, char *str)
 {
 	int	i;
 
@@ -68,13 +70,32 @@ void	send_signals(int server_pid, char *str)
 	while (str[i])
 	{
 		if (str[i] == '0')
-			kill(server_pid, SIGUSR1);
+			kill(pid_server, SIGUSR1);
 		if (str[i] == '1')
-			kill(server_pid, SIGUSR2);
+			kill(pid_server, SIGUSR2);
 		i++;
-		usleep(150);
+		usleep(200);
 	}
 }
+
+// void	size_received(int sig)
+// {
+// 	if (sig == SIGUSR1)
+// 	{
+// 		g_c.i++;
+// 		printf("\033cBits_size: [%d]\nBits_msg: [%d]\n", g_c.i, g_c.j);
+// 	}
+// }
+
+// void	msg_received(int sig)
+// {
+// 	if (sig == SIGUSR2)
+// 	{
+// 		g_c.j++;
+// 		printf("\033cBits_size: [%d]\nBits_msg: [%d]\n", g_c.i, g_c.j);
+// 	}
+// }
+
 
 char	*binary_to_ascii(char *binary_string)
 {
@@ -100,23 +121,26 @@ char	*binary_to_ascii(char *binary_string)
 
 int	main(int argc, char **argv)
 {
-	int		server_pid;
 	char	*str_binary;
 	char	*msg_binary_size;
 	int		message_size;
 
-	server_pid = parse_input(argc, argv);
-	printf("Server_PID: [%d]\n", server_pid);
+	// signal(SIGUSR1, size_received);
+	// signal(SIGUSR2, msg_received);
+	g_c.pid_server = parse_input(argc, argv);
+	printf("pid_server: [%d]\n", g_c.pid_server);
+	g_c.pid_client = getpid();
+	printf("pid_client: [%d]\n", g_c.pid_client);
 	str_binary = conver_str_to_bits(argv[2]);
-	// printf("%s\n", str_binary);
 	message_size = strlen(str_binary);
-	// char size_str[32]; // assuming message size will fit in 32 bytes
-	msg_binary_size = decimalToBinary(message_size);
+	msg_binary_size = decimalToBinary(message_size, 32);
+	g_c.pid_client_b = decimalToBinary(g_c.pid_client, 15);
+	printf("pid_client_b: [%s]\n", g_c.pid_client_b);
+	printf("BINARY->INT: [%d]\n", binaryToInt(g_c.pid_client_b));
 	printf("MSG_SIZE:[%d]\nINT->BINARY:[%s]\n", message_size, msg_binary_size);
 	printf("BINARY->INT: [%d]\n", binaryToInt(msg_binary_size));
-	send_signals(server_pid, msg_binary_size); // send message size first
-	// send_signals(server_pid, argv[2]); // send message next
-	send_signals(server_pid, str_binary);
+	send_signals(g_c.pid_server, msg_binary_size);
+	send_signals(g_c.pid_server, str_binary);
 	free(str_binary);
 	free(msg_binary_size);
 	return (0);
