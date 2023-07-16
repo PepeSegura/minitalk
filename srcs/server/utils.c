@@ -6,7 +6,7 @@
 /*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:41:43 by pepe              #+#    #+#             */
-/*   Updated: 2023/05/07 21:16:09 by pepe             ###   ########.fr       */
+/*   Updated: 2023/07/16 13:49:46 by pepe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,19 @@ char	*decimalToBinary(int num)
 	return (binary);
 }
 
-double my_pow(double x, int n) {
-    double result = 1;
-    int i = 0;
+double	my_pow(double x, int n)
+{
+	double	result;
+	int		i;
 
-    while (i < n) {
-        result *= x;
-        i++;
-    }
-
-    return result;
+	result = 1;
+	i = 0;
+	while (i < n)
+	{
+		result *= x;
+		i++;
+	}
+	return (result);
 }
 
 int	binaryToInt(char *binary)

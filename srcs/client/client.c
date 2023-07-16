@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:44:32 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/18 18:49:20 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/07/16 13:49:53 by pepe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	send_signals(int pid_server, char *str)
 // 		printf("\033cBits_size: [%d]\nBits_msg: [%d]\n", g_c.i, g_c.j);
 // 	}
 // }
-
 
 char	*binary_to_ascii(char *binary_string)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 14:49:54 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/18 18:32:58 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/07/16 13:49:30 by pepe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_server {
 /* server.c */
 
 /* utils.c */
-char	*decimalToBinary(int num, int size);
+char	*decimalToBinary(int num);
 int		binaryToInt(char *binary);
 
 /* errors.c */
