@@ -1,4 +1,15 @@
-// server.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
+/*   Updated: 2023/09/18 21:24:07 by psegura-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +25,8 @@ typedef struct s_clients
 	void	*next;
 }			t_clients;
 
-_Atomic t_clients	*client_list = NULL;
+// _Atomic t_clients	*client_list = NULL;
+t_clients	*client_list = NULL;
 
 void	print_clients(void)
 {

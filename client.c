@@ -1,4 +1,15 @@
-// client.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
+/*   Updated: 2023/09/18 20:33:03 by psegura-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +19,6 @@ int	main(int argc, char **argv)
 {
 	(void)argc;
 	pid_t			client_pid;
-	union sigval	sigdata;
 	int				signal_ammount = atoi(argv[1]);
 
 	pid_t server_pid;
@@ -17,11 +27,10 @@ int	main(int argc, char **argv)
 	printf("Client PID: %d\n", client_pid);
 	printf("Enter the server's PID: ");
 	scanf("%d", &server_pid);
-	// Create a SIGUSR1 signal containing the client's PID and send it to the server
-	sigdata.sival_int = client_pid;
+
 	for (int i = 0; i < signal_ammount; i++)
 	{
-		if (sigqueue(server_pid, SIGUSR1, sigdata) == -1)
+		if (kill(server_pid, SIGUSR1))
 		{
 			perror("Signal sending failed");
 			exit(EXIT_FAILURE);
