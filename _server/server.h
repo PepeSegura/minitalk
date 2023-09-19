@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libs.h                                             :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 14:52:05 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/06 20:40:01 by psegura-         ###   ########.fr       */
+/*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
+/*   Updated: 2023/09/19 18:46:55 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBS_H
-# define LIBS_H
+#ifndef SERVER_H
+# define SERVER_H
 
-//Write, Getpid, Pause, Sleep, Usleep
-# include <unistd.h>
-
-//Signal, Sigemptyset, Sigaddset, Sigaction, Kill
 # include <signal.h>
-
-//Read, Perror, Strerror
 # include <stdio.h>
-
-//Malloc, Free, Exit
 # include <stdlib.h>
+# include <unistd.h>
+# include "../libft/inc/libft.h"
+
+typedef int	idx;
+
+typedef struct s_clients
+{
+	pid_t	pid;
+	idx		i;
+	char	buffer[8];
+	void	*next;
+}			t_clients;
 
 #endif

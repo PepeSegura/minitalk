@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "functional": "c"
-    }
+		"functional": "c",
+		"minitalk.h": "c"
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:41:43 by pepe              #+#    #+#             */
-/*   Updated: 2023/05/18 18:27:31 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:10:24 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*decimalToBinary(int num, int size)
 		temp = temp / 2;
 		len++;
 	}
-	binary = (char *)malloc((size + 1) * sizeof(char));
+	binary = (char *)calloc((size + 1) , sizeof(char));
 	for (int i = 0; i < size - len; i++)
 	{
 		binary[i] = '0';
@@ -41,7 +41,6 @@ char	*decimalToBinary(int num, int size)
 		num = num / 2;
 		i--;
 	}
-	binary[size] = '\0';
 	return (binary);
 }
 

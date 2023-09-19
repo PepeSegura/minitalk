@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/09/18 21:19:38 by psegura-         ###   ########.fr        #
+#    Updated: 2023/09/19 16:42:18 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,14 @@ WHITE	=	\033[0m
 NAME_C = client
 NAME_S = server
 
-SRCS_C =										\
-		srcs/client/client.c					\
-		srcs/client/utils.c						\
-		srcs/client/init_data.c					\
-												\
+SRCS_C =					\
+		_client/client.c	\
+		_client/utils.c		\
+							\
 		
-SRCS_S =										\
-		srcs/server/server.c					\
-		srcs/server/utils.c						\
-												\
+SRCS_S =					\
+		_server/server.c	\
+							\
 
 OBJS_C = $(SRCS_C:%.c=objs/%.o)
 OBJS_S = $(SRCS_S:%.c=objs/%.o)
@@ -39,7 +37,7 @@ LIB = libft/libft.a
 
 CC = gcc
 
-CFLAGS	 = -Wall -Wextra -Werror -g3 -fsanitize=address#,leak
+CFLAGS	 = -Wall -Wextra -Werror
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 
@@ -56,7 +54,7 @@ $(NAME_S): objs $(OBJS_S)
 	@echo "$(CYAN) SERVER READY$(WHITE)"
 
 objs:
-	@mkdir -p objs/srcs/server objs/srcs/client
+	@mkdir -p objs/_server objs/_client
 
 objs/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -72,7 +70,10 @@ fclean: clean
 
 re: fclean all
 
+debug:: CFLAGS += -g3 -fsanitize=address#,leak
+debug:: re
+
 norma:
 	@echo 6e6f726d696e65747465207372637320696e6320313e2f6465762f6e756c6c3b206966205b5b20243f202d65712030205d5d3b207468656e206e6f726d696e65747465207372637320696e633b20656c7365206e6f726d696e65747465207372637320696e63207c206772657020274572726f7227203b206669 | xxd -r -p | zsh
 
-.PHONY: all clean fclean re norma
+.PHONY: all clean fclean re norma debug

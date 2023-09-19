@@ -6,24 +6,11 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/18 21:24:07 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:09:35 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-typedef int	index;
-
-typedef struct s_clients
-{
-	pid_t	pid;
-	index	i;
-	char	buffer[8];
-	void	*next;
-}			t_clients;
+#include "server.h"
 
 // _Atomic t_clients	*client_list = NULL;
 t_clients	*client_list = NULL;
@@ -76,6 +63,7 @@ int	add_client(pid_t client_pid)
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
+	(void)signum, (void)context;
 	pid_t		client_pid;
 	static int	clients;
 
@@ -86,6 +74,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	printf("Number of clients: %d\n", clients);
 	if (clients == 3)
 		print_clients();
+	kill(client_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -98,6 +87,7 @@ int	main(void)
 	sa.sa_flags = SA_SIGINFO; // Use the extended signal handler with si_pid
 	sa.sa_sigaction = signal_handler;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	printf("Server is waiting for a signal...\n");
 	while (1)
 		sleep(1);

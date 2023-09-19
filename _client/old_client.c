@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   old_client.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:44:32 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/18 21:22:09 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:15:33 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,6 @@ void	send_signals(int pid_server, char *str)
 	}
 }
 
-// void	size_received(int sig)
-// {
-// 	if (sig == SIGUSR1)
-// 	{
-// 		g_c.i++;
-// 		printf("\033cBits_size: [%d]\nBits_msg: [%d]\n", g_c.i, g_c.j);
-// 	}
-// }
-
-// void	msg_received(int sig)
-// {
-// 	if (sig == SIGUSR2)
-// 	{
-// 		g_c.j++;
-// 		printf("\033cBits_size: [%d]\nBits_msg: [%d]\n", g_c.i, g_c.j);
-// 	}
-// }
-
 char	*binary_to_ascii(char *binary_string)
 {
 	int		len;
@@ -124,8 +106,6 @@ int	main(int argc, char **argv)
 	char	*msg_binary_size;
 	int		message_size;
 
-	// signal(SIGUSR1, size_received);
-	// signal(SIGUSR2, msg_received);
 	g_c.pid_server = parse_input(argc, argv);
 	printf("pid_server: [%d]\n", g_c.pid_server);
 	g_c.pid_client = getpid();
