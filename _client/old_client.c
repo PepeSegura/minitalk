@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:44:32 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/19 16:15:33 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:34:35 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ int	main(int argc, char **argv)
 	str_binary = conver_str_to_bits(argv[2]);
 	message_size = strlen(str_binary);
 	msg_binary_size = decimalToBinary(message_size, 32);
-	g_c.pid_client_b = decimalToBinary(g_c.pid_client, 15);
-	printf("pid_client_b: [%s]\n", g_c.pid_client_b);
 	printf("BINARY->INT: [%d]\n", binaryToInt(g_c.pid_client_b));
 	printf("MSG_SIZE:[%d]\nINT->BINARY:[%s]\n", message_size, msg_binary_size);
 	printf("BINARY->INT: [%d]\n", binaryToInt(msg_binary_size));

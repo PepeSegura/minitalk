@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:25:49 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/19 18:47:19 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:39:12 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,36 @@ void	ft_perror(char *error_msg)
 {
 	perror(error_msg);
 	exit(EXIT_FAILURE);
+}
+
+char	*nbr_to_header(int num, int size)
+{
+	int		temp;
+	int		len;
+	char	*binary;
+	int		i;
+
+	temp = num;
+	len = 0;
+	while (temp > 0)
+	{
+		temp = temp / 2;
+		len++;
+	}
+	binary = (char *)calloc((size + 1) , sizeof(char));
+	for (int i = 0; i < size - len; i++)
+	{
+		binary[i] = '0';
+	}
+	i = size - 1;
+	while (num > 0)
+	{
+		if (num % 2 == 0)
+			binary[i] = '0';
+		else
+			binary[i] = '1';
+		num = num / 2;
+		i--;
+	}
+	return (binary);
 }

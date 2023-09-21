@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/19 19:08:56 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:35:20 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,17 @@ void	send_bit(pid_t pid, int signal)
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 	(void)signum, (void)context, (void)info;
-	pid_t		server_pid;
+	if (signum == SIGUSR1)
+	{
+		pid_t		server_pid;
 
-	server_pid = info->si_pid;
-	printf("Received SIGUSR1 signal from SERVER (PID %d)\n", server_pid);
+		server_pid = info->si_pid;
+		printf("Received signal from SERVER (PID %d)\n", server_pid);
+	}
+	else
+	{
+		
+	}
 }
 
 void	send_signals(char *str)
@@ -54,7 +61,7 @@ void	send_signals(char *str)
 	int	i;
 	struct sigaction	sa;
 
-	sa.sa_flags = SA_SIGINFO; // Use the extended signal handler with si_pid
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = signal_handler;
 
 	sigaction(SIGUSR1, &sa, NULL);
@@ -70,21 +77,30 @@ void	send_signals(char *str)
 	}
 }
 
+char	*create_header(char *msg)
+{
+	int		len;
+	char	*header;
+
+	len = ft_strlen(msg);
+	header = nbr_to_header(len, 32);
+	printf("Size: %s\n", header);
+	return (header);
+}
+
 int	main(int argc, char **argv)
 {
+	char 	*msg_binary;
+	char	*header;
+
 	init_data(argc, argv);
-	printf("Client PID: %d\n", data.client_pid);
 
-	char 	*msg_binary = conver_str_to_bits(data.msg);
-
-	send_signals(msg_binary);
-	// for (int i = 0; i < 4; i++)
-	// {
-	// 	if (kill(data.server_pid, SIGUSR1))
-	// 		ft_perror("Signal sending failed");
-	// 	usleep(150);
-	// }
-	printf("Sent %d SIGUSR1 signals to the server (PID %d)\n", ft_strlen(data.msg) * 8, data.server_pid);
+	// send_header()
+	msg_binary	= conver_str_to_bits(data.msg);
+	header		= create_header(msg_binary);
+	send_signals(header);
+	// send_signals(msg_binary);
+	// printf("Sent %d SIGUSR1 signals to the server (PID %d)\n", ft_strlen(data.msg) * 8, data.server_pid);
 	
 	return (0);
 }
