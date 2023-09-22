@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   old_server.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:45:05 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/18 18:14:43 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:40:17 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,9 @@ char	*binary_to_ascii(char *binary_string)
 		{
 			index = i * 8 + j;
 			if (index < len)
-			{
 				chunk[j] = binary_string[index];
-			}
 			else
-			{
 				chunk[j] = '0';
-			}
 		}
 		chunk[8] = '\0';
 		ascii_val = strtol(chunk, NULL, 2);

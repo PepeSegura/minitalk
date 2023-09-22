@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/09/19 16:42:18 by psegura-         ###   ########.fr        #
+#    Updated: 2023/09/23 01:06:01 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_C =					\
 		
 SRCS_S =					\
 		_server/server.c	\
+		_server/utils.c		\
 							\
 
 OBJS_C = $(SRCS_C:%.c=objs/%.o)
@@ -37,7 +38,7 @@ LIB = libft/libft.a
 
 CC = gcc
 
-CFLAGS	 = -Wall -Wextra -Werror
+CFLAGS	 = -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 

@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/22 22:12:32 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/23 00:32:08 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ typedef struct s_clients
 {
 	pid_t	pid;
 	idx		i;
-	char	header[33];
+	char	header[32];
 	int		size_msg;
 	char	*msg_binary;
 	char	*msg;
 	char	*result;
-	char	buffer[9];
+	char	buffer[8];
 	void	*next;
 }			t_clients;
+
+void	ft_print_error(char *error_msg);
+void	ft_perror(char *error_msg);
+char	*binary_to_ascii(char *binary_string);
+int		binary_to_int(char *binary);
+
+void	keep_server_up(void);
 
 #endif
