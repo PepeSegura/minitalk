@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/20 18:35:20 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:55:52 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 	msg_binary	= conver_str_to_bits(data.msg);
 	header		= create_header(msg_binary);
 	send_signals(header);
-	// send_signals(msg_binary);
+	send_signals(msg_binary);
 	// printf("Sent %d SIGUSR1 signals to the server (PID %d)\n", ft_strlen(data.msg) * 8, data.server_pid);
 	
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/20 18:47:17 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:50:59 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ void	print_clients(void)
 	}
 }
 
-int	add_client(pid_t client_pid)
+int	add_client(pid_t client_pid, int signal)
 {
 	t_clients	*current;
 	t_clients	*new_client;
 
+	char	input;
+
+	if (signal == SIGUSR1)
+		input = '1';
+	if (signal == SIGUSR2)
+		input = '0';
 	// Check if the client is already in the list
 	current = client_list;
 	while (current != NULL)
@@ -65,11 +71,11 @@ int	add_client(pid_t client_pid)
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
-	(void)signum, (void)context;
+	(void)context;
 	pid_t		client_pid;
 	
 	client_pid = info->si_pid;
-	clients += add_client(client_pid);
+	clients += add_client(client_pid, signum);
 	kill(client_pid, SIGUSR1);
 }
 
