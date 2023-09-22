@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:50:59 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:16:54 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,63 @@
 
 t_clients	*client_list = NULL;
 int			clients = 0;
+
+char	*binary_to_ascii(char *binary_string)
+{
+	int		len;
+	int		num_chunks;
+	char	*ascii_string;
+	char	chunk[9];
+	int		ascii_val;
+
+	len = strlen(binary_string);
+	num_chunks = len / 8;
+	ascii_string = (char *)malloc(num_chunks + 1);
+	for (int i = 0; i < num_chunks; i++)
+	{
+		strncpy(chunk, binary_string + i * 8, 8);
+		chunk[8] = '\0';
+		ascii_val = strtol(chunk, NULL, 2);
+		ascii_string[i] = (char)ascii_val;
+	}
+	ascii_string[num_chunks] = '\0';
+	return (ascii_string);
+}
+
+double	my_pow(double x, int n)
+{
+	double	result;
+	int		i;
+
+	result = 1;
+	i = 0;
+	while (i < n)
+	{
+		result *= x;
+		i++;
+	}
+	return (result);
+}
+
+int	binaryToInt(char *binary)
+{
+	int	result;
+	int	len;
+	int	i;
+
+	result = 0;
+	len = strlen(binary);
+	i = 0;
+	while (i < len)
+	{
+		if (binary[i] == '1')
+		{
+			result += my_pow(2, len - i - 1);
+		}
+		i++;
+	}
+	return (result);
+}
 
 void	print_clients(void)
 {
@@ -25,6 +82,38 @@ void	print_clients(void)
 	{
 		printf("Client PID: %d, 'i' value: %d\n", current->pid, current->i);
 		current = current->next;
+	}
+}
+
+void	add_content(t_clients	*current, char input)
+{
+	if (current->i < 32)
+	{
+		current->header[current->i] = input;
+		current->i++;
+	}
+	if (current->i == 32)
+	{
+		printf("GOT HEADER!!! for client [%d]\n", current->pid);
+		current->size_msg = binaryToInt(current->header);
+		memset(current->header, 0, sizeof(current->header));
+		current->msg_binary = malloc((current->size_msg + 1) * sizeof(char));
+		if (!current->msg_binary)
+			exit(1);
+		current->i++;
+	}
+	else if (current->i >= 32 && current->i <= current->size_msg + 32)
+	{
+		current->msg[current->i - 33] = input;
+		current->i++;
+	}
+	if (current->i > current->size_msg + 32)
+	{
+		current->msg[current->i - 33] = '\0';
+		current->i = 0;
+		current->result = binary_to_ascii(current->msg);
+		write(1, current->result, current->size_msg / 8);
+		write(1, "\n", 1);
 	}
 }
 
@@ -45,10 +134,12 @@ int	add_client(pid_t client_pid, int signal)
 	{
 		if (current->pid == client_pid)
 		{
+			
 			//Add content to the buffer, and if buffer is filled, convert to letter and print
-			current->i++;
-			if (current->i == 31)
-				printf("GOT HEADER!!! for client [%d]\n", current->pid);
+			add_content(current, input);
+			// current->i++;
+			// if (current->i == 31)
+			// 	printf("GOT HEADER!!! for client [%d]\n", current->pid);
 			return (0);
 		}
 		current = current->next;
