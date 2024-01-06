@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/23 00:32:08 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:22:50 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_clients
 }			t_clients;
 
 void	ft_print_error(char *error_msg);
-void	ft_perror(char *error_msg);
+
 char	*binary_to_ascii(char *binary_string);
 int		binary_to_int(char *binary);
 

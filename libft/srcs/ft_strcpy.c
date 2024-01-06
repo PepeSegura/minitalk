@@ -1,29 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/14 15:17:55 by psegura-          #+#    #+#             */
-/*   Updated: 2022/08/15 02:55:51 by psegura-         ###   ########.fr       */
+/*   Created: 2023/01/18 21:38:51 by psegura-          #+#    #+#             */
+/*   Updated: 2023/07/01 18:17:09 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/**
- * Copy the string pointed to by src, including the terminating null byte ('\0'),
- * to the buffer pointed to by dest. The strings may not overlap, and the
- * destination string dest must be large enough to receive the copy. Beware of
- * buffer overruns! (See BUGS.) 
- * 
- * @param dest This is the destination string.
- * @param src The string to be copied.
- * @param size The maximum number of bytes to be copied from src.
- * 
- * @return The length of the string src.
- */
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*ft_strncpy(char *dst, const char *src, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+		dst[i++] = '\0';
+	return (dst);
+}
+
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/09/23 01:06:01 by psegura-         ###   ########.fr        #
+#    Updated: 2024/01/06 18:58:40 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ NAME_C = client
 NAME_S = server
 
 SRCS_C =					\
-		_client/client.c	\
-		_client/utils.c		\
+		srcs/client/client.c	\
+		srcs/client/utils.c		\
 							\
 		
 SRCS_S =					\
-		_server/server.c	\
-		_server/utils.c		\
+		srcs/server/server.c	\
+		srcs/server/utils.c		\
 							\
 
 OBJS_C = $(SRCS_C:%.c=objs/%.o)
@@ -55,7 +55,7 @@ $(NAME_S): objs $(OBJS_S)
 	@echo "$(CYAN) SERVER READY$(WHITE)"
 
 objs:
-	@mkdir -p objs/_server objs/_client
+	@mkdir -p objs/srcs/server objs/srcs/client
 
 objs/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@

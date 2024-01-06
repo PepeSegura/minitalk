@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_row_matrix.c                                :+:      :+:    :+:   */
+/*   ft_atoi_limits.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 01:49:01 by psegura-          #+#    #+#             */
-/*   Updated: 2023/06/11 19:03:20 by psegura-         ###   ########.fr       */
+/*   Created: 2023/12/24 21:56:18 by psegura-          #+#    #+#             */
+/*   Updated: 2023/12/31 18:51:52 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_add_row_matrix(char **matrix, char *new_row)
+static void	print_error(void)
+{
+	ft_dprintf(2, "Error\n");
+	exit(EXIT_FAILURE);
+}
+
+int	ft_atoi_limits(const char *str)
 {
 	int		i;
-	char	**aux;
+	long	dest;
+	int		sign;
 
-	if (!matrix)
-		return (NULL);
-	aux = ft_calloc(sizeof(char *), (ft_len_matrix(matrix) + 2));
-	if (!aux)
-		return (NULL);
-	if (!new_row)
-		return (matrix);
 	i = 0;
-	while (i < ft_len_matrix(matrix))
+	dest = 0;
+	sign = 1;
+	while (ft_isspace(str[i]))
+		i++;
+	if ((str[i] == '-' || str[i] == '+'))
 	{
-		aux[i] = matrix[i];
+		if (str[i] == '-')
+			sign = sign * -1;
 		i++;
 	}
-	aux[i] = new_row;
-	free(matrix);
-	return (aux);
+	while (ft_isdigit(str[i]))
+		dest = (dest * 10) + (str[i++] - '0');
+	if ((dest * sign) > INT_MAX || (dest * sign) < INT_MIN)
+		print_error();
+	return ((int)(dest * sign));
 }

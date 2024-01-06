@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_str_is_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 21:38:51 by psegura-          #+#    #+#             */
-/*   Updated: 2023/01/18 21:48:15 by psegura-         ###   ########.fr       */
+/*   Created: 2023/03/11 17:33:32 by psegura-          #+#    #+#             */
+/*   Updated: 2023/06/12 05:36:48 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+int	ft_str_is_space(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < len && src[i])
+	while (str[i])
 	{
-		dst[i] = src[i];
-		i++;
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+			i++;
+		else
+			return (0);
 	}
-	while (i < len)
-		dst[i++] = '\0';
-	return (dst);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/23 01:25:40 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:14:40 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 typedef struct s_client
 {
-	pid_t				client_pid;
-	pid_t				server_pid;
-	char				*msg;
-}						t_client;
+	pid_t	client_pid;
+	pid_t	server_pid;
+	char	*msg;
+}	t_client;
 
 t_client				data;
 
@@ -38,7 +38,7 @@ void	init_data(int argc, char **argv)
 void	send_bit(pid_t pid, int signal)
 {
 	if (kill(pid, signal))
-		ft_perror("Signal sending failed");
+		ft_print_error("Signal sending failed.");
 }
 
 volatile sig_atomic_t	server_ready = 0;
@@ -47,17 +47,15 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 	(void)signum, (void)context, (void)info;
 	if (signum == SIGUSR1)
+	{
 		server_ready = 1;
+	}
 }
 
 void	send_signals(char *str)
 {
 	int					i;
-	struct sigaction	sa;
 
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = signal_handler;
-	sigaction(SIGUSR1, &sa, NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -84,8 +82,13 @@ char	*create_header(char *msg)
 
 int	main(int argc, char **argv)
 {
-	char	*msg_binary;
-	char	*header;
+	char				*msg_binary;
+	char				*header;
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = signal_handler;
+	sigaction(SIGUSR1, &sa, NULL);
 
 	init_data(argc, argv);
 	msg_binary = conver_str_to_bits(data.msg);

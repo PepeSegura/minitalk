@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:39:06 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/23 00:27:33 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:22:41 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ void	keep_server_up(void)
 
 void	ft_print_error(char *error_msg)
 {
-	ft_putendl_fd(error_msg, 2);
-	exit(EXIT_FAILURE);
-}
-
-void	ft_perror(char *error_msg)
-{
-	perror(error_msg);
+	ft_dprintf(2, "Error: %s\n", error_msg);
 	exit(EXIT_FAILURE);
 }
 

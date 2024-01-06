@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:25:48 by psegura-          #+#    #+#             */
-/*   Updated: 2022/10/30 23:00:21 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:51:21 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ int	ft_strlen_printf(char *str)
  * 
  * @return The number of bytes written.
  */
-int	ft_putchar_printf(int c)
+int	ft_putchar_printf(int fd, int c)
 {
-	write(1, &c, 1);
-	return (1);
+	return (write(fd, &c, 1));
 }
 
 /**
@@ -49,13 +48,9 @@ int	ft_putchar_printf(int c)
  * 
  * @return The length of the string.
  */
-int	ft_putstr_printf(char *str)
+int	ft_putstr_printf(int fd, char *str)
 {
 	if (!str)
-	{
-		ft_putstr_printf("(null)");
-		return (6);
-	}
-	write(1, str, ft_strlen_printf(str));
-	return (ft_strlen_printf(str));
+		str = "(null)";
+	return (write(fd, str, ft_strlen(str)));
 }

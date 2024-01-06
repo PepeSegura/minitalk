@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
-/*   Updated: 2023/09/23 01:28:58 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:22:34 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	add_client(pid_t client_pid, int signal)
 	}
 	new_client = ft_calloc(1, sizeof(t_clients));
 	if (new_client == NULL)
-		ft_perror("RIP MALLOC");
+		ft_print_error("RIP MALLOC");
 	new_client->pid = client_pid;
 	add_content(new_client, input);
 	new_client->next = client_list;

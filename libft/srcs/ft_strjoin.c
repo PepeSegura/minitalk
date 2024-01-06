@@ -6,20 +6,20 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:57:11 by psegura-          #+#    #+#             */
-/*   Updated: 2023/01/31 21:57:14 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:08:28 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-typedef struct s_cosas
+typedef struct s_data
 {
 	char	*final;
 	int		l_s1;
 	int		l_total;
 	int		i;
 	int		j;
-}	t_cosas;
+}	t_data;
 
 /**
  * It takes two strings, allocates a new string of the correct size, copies the
@@ -34,9 +34,9 @@ typedef struct s_cosas
  */
 char	*ft_strjoin(char *s1, char *s2)
 {
-	t_cosas	c;
+	t_data	c;
 
-	ft_memset(&c, 0, sizeof(t_cosas));
+	ft_memset(&c, 0, sizeof(t_data));
 	if (s1 == NULL && s2)
 		return (s2);
 	if (s2 == NULL && s1)
