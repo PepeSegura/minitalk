@@ -1,14 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 17:39:01 by psegura-         ###   ########.fr       */
+/*   Created: 2024/01/26 17:06:32 by psegura-          #+#    #+#             */
+/*   Updated: 2024/01/26 17:07:01 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
-#include <sys/time.h>
+#include "shared.h"
+
+void	ft_print_error(char *error_msg)
+{
+	ft_dprintf(2, "Error: %s\n", error_msg);
+	exit(EXIT_FAILURE);
+}

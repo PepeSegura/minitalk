@@ -6,25 +6,21 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/06 19:22:50 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:38:02 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_H
 # define SERVER_H
 
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "../libft/inc/libft.h"
+# include "shared.h"
 
-typedef int	idx;
+typedef int	t_idx;
 
 typedef struct s_clients
 {
 	pid_t	pid;
-	idx		i;
+	t_idx	i;
 	char	header[32];
 	int		size_msg;
 	char	*msg_binary;
@@ -36,7 +32,7 @@ typedef struct s_clients
 
 void	ft_print_error(char *error_msg);
 
-char	*binary_to_ascii(char *binary_string);
+char	*binary_to_str(char *binary_string);
 int		binary_to_int(char *binary);
 
 void	keep_server_up(void);

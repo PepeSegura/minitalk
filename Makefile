@@ -6,9 +6,11 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/01/06 18:58:40 by psegura-         ###   ########.fr        #
+#    Updated: 2024/01/26 20:19:09 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+MAKEFLAGS += --no-print-directory
 
 ### Colors ###
 
@@ -21,15 +23,28 @@ WHITE	=	\033[0m
 NAME_C = client
 NAME_S = server
 
-SRCS_C =					\
-		srcs/client/client.c	\
-		srcs/client/utils.c		\
-							\
+SHARED =					\
+			errors.c		\
+			utils.c			\
+			binary_to_x.c	\
+			x_to_binary.c	\
+
+SRCS_SHARED = $(addprefix shared/, $(SHARED))
+
+CLIENT =							\
+			client/main.c			\
+			client/client.c			\
+			client/ping.c			\
+			$(SRCS_SHARED)			\
 		
-SRCS_S =					\
-		srcs/server/server.c	\
-		srcs/server/utils.c		\
-							\
+SRCS_C = $(addprefix srcs/, $(CLIENT))
+
+SERVER =							\
+			server/main.c			\
+			server/server.c			\
+			$(SRCS_SHARED)			\
+
+SRCS_S = $(addprefix srcs/, $(SERVER))
 
 OBJS_C = $(SRCS_C:%.c=objs/%.o)
 OBJS_S = $(SRCS_S:%.c=objs/%.o)
@@ -47,15 +62,15 @@ all: $(NAME_C) $(NAME_S)
 $(NAME_C): objs $(OBJS_C)
 	@make -C libft
 	@$(CC) $(CFLAGS) $(OBJS_C) $(LIB) -o $(NAME_C)
-	@echo "$(CYAN) CLIENT READY$(WHITE)"
+	@echo "$(CYAN)CLIENT READY$(WHITE)"
 
 $(NAME_S): objs $(OBJS_S)
 	@make -C libft
 	@$(CC) $(CFLAGS) $(OBJS_S) $(LIB) -o $(NAME_S)
-	@echo "$(CYAN) SERVER READY$(WHITE)"
+	@echo "$(CYAN)SERVER READY$(WHITE)"
 
 objs:
-	@mkdir -p objs/srcs/server objs/srcs/client
+	@mkdir -p objs/srcs/server objs/srcs/client objs/srcs/shared
 
 objs/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -69,7 +84,8 @@ fclean: clean
 	@rm -f $(NAME_C)
 	@rm -f $(NAME_S)
 
-re: fclean all
+re:: fclean
+re:: all
 
 debug:: CFLAGS += -g3 -fsanitize=address#,leak
 debug:: re

@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:23:17 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/06 19:22:34 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:44:14 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ t_clients	*client_list = NULL;
 
 void	add_content(t_clients *c, char input)
 {
-	//get header from client (size of the "real" message)
 	if (c->i < HEADER_SIZE)
 	{
 		c->header[c->i] = input;
 		c->i++;
 	}
-	//convert header into a number and reserve enough memory to store the message
 	if (c->i == HEADER_SIZE)
 	{
 		c->size_msg = binary_to_int(c->header);
@@ -34,7 +32,6 @@ void	add_content(t_clients *c, char input)
 			ft_print_error("RIP MALLOC");
 		c->i++;
 	}
-	//store the msg in the zone reserved by the prev condition
 	else if (c->i >= HEADER_SIZE && c->i <= c->size_msg + HEADER_SIZE)
 	{
 		c->msg_binary[c->i - 33] = input;
@@ -42,7 +39,7 @@ void	add_content(t_clients *c, char input)
 	}
 	if (c->i > c->size_msg + HEADER_SIZE)
 	{
-		c->result = binary_to_ascii(c->msg_binary);
+		c->result = binary_to_str(c->msg_binary);
 		write(1, c->result, c->size_msg / 8);
 		write(1, "\n", 1);
 	}
@@ -52,8 +49,7 @@ int	add_client(pid_t client_pid, int signal)
 {
 	t_clients	*current;
 	t_clients	*new_client;
-
-	char	input;
+	char		input;
 
 	if (signal == SIGUSR1)
 		input = '0';
@@ -79,12 +75,18 @@ int	add_client(pid_t client_pid, int signal)
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
-	(void)context;
-	pid_t		client_pid;
+	pid_t	client_pid;
 
+	(void)context;
 	client_pid = info->si_pid;
 	add_client(client_pid, signum);
 	kill(client_pid, SIGUSR1);
+}
+
+void	keep_server_up(void)
+{
+	while (1)
+		sleep(1);
 }
 
 int	main(void)
