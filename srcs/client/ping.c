@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:05:47 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 20:19:38 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/27 10:49:06 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 
 #define SERVER_READY SIGUSR1
 #define SERVER_BUSY SIGUSR2
-
-typedef struct s_global
-{
-	int						pid;
-	volatile sig_atomic_t	is_ready;
-}	t_global;
 
 t_global	g_server;
 

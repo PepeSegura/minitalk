@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:02:59 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 17:46:08 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/27 10:01:30 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 void	print_bytes(char *str);
 

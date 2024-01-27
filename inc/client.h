@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:19:04 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 20:21:35 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/27 10:14:32 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 # define USAGE "\rUsage:\n\t./client [pid_server] [message]"
 # define BAD_SIGNAL "Signal sending failed: Operation not permitted."
 
-void	append_char_bits_to_string(unsigned char c, char *string, int *index);
-char	*str_to_binary(char *str);
+typedef struct s_global
+{
+	int						pid;
+	volatile sig_atomic_t	is_ready;
+}	t_global;
 
-int	ping(int pid);
-// void	send_signals(int pid_server, char *str);
-char	*binary_to_str(char *binary_string);
+extern t_global	g_server;
 
-char	*int_to_binary(int num, int size);
-
-void	ft_print_error(char *error_msg);
+void	parser(int argc, char **argv);
+int		ping(int pid);
 
 #endif

@@ -6,12 +6,11 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:52 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 20:25:49 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/01/27 10:40:06 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
-#include <sys/time.h>
 
 typedef struct s_client
 {
@@ -22,14 +21,12 @@ typedef struct s_client
 
 t_client	data;
 
-void	init_data(int argc, char **argv)
+void	init_data(char **argv)
 {
-	if (argc != 3)
-		ft_print_error(USAGE);
 	ft_memset(&data, 0, sizeof(t_client));
-	data.server_pid = ft_atoi(argv[1]);
+	data.server_pid = ft_atoi_limits(argv[1]);
 	data.client_pid = getpid();
-	dprintf(2, "PID CLIENT %d\n", data.client_pid);
+	ft_dprintf(2, "PID CLIENT %d\n", data.client_pid);
 	data.msg = argv[2];
 	if (data.server_pid == 0)
 		ft_print_error(BAD_SIGNAL);
@@ -86,10 +83,11 @@ int	main(int argc, char **argv)
 	char				*header;
 	struct sigaction	sa;
 
+	parser(argc, argv);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = signal_handler;
 	sigaction(SIGUSR1, &sa, NULL);
-	init_data(argc, argv);
+	init_data(argv);
 	ping(data.server_pid);
 	msg_binary = str_to_binary(data.msg);
 	free(binary_to_str(msg_binary));

@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/01/26 20:19:09 by psegura-         ###   ########.fr        #
+#    Updated: 2024/01/27 10:14:49 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS_SHARED = $(addprefix shared/, $(SHARED))
 CLIENT =							\
 			client/main.c			\
 			client/client.c			\
+			client/parser.c			\
 			client/ping.c			\
 			$(SRCS_SHARED)			\
 		
