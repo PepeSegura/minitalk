@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 17:38:02 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/07 21:41:37 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,32 @@
 
 # include "shared.h"
 
-typedef int	t_idx;
+# define HEADER_SIZE 32
+# define SIGNAL_RECEIVED SIGUSR2
 
-typedef struct s_clients
+typedef struct s_msg
 {
-	pid_t	pid;
-	t_idx	i;
-	char	header[32];
-	int		size_msg;
-	char	*msg_binary;
-	char	*msg;
-	char	*result;
-	char	buffer[8];
-	void	*next;
-}			t_clients;
+	char	header[HEADER_SIZE + 1];
+	int		size_message;
+	char	*message;
+}	t_msg;
 
-void	ft_print_error(char *error_msg);
+typedef struct s_global
+{
+	int						client_pid;
+	int						actual_pid;
+	volatile sig_atomic_t	is_ready;
+	t_msg					msg;
+}	t_global;
 
-char	*binary_to_str(char *binary_string);
-int		binary_to_int(char *binary);
+extern t_global	g_client;
 
-void	keep_server_up(void);
+int		pong(int pid);
+
+char	set_input(int signum);
+void	store_signals_for_header(int *i, char input);
+void	memory_reserve_to_store_signals(int *i);
+void	store_signals(int *i, char input);
+void	create_and_print_final_message(int *i);
 
 #endif

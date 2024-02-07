@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:45:29 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/26 17:51:03 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:44:39 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*str_to_binary(char *str)
 			binary[j++] = (str[i] >> bite & 1) + '0';
 		i++;
 	}
-	print_bytes(binary);
 	return (binary);
 }
 

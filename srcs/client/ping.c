@@ -6,13 +6,13 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:05:47 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/27 10:49:06 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/07 21:48:06 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-#define RETRY_TIMES 20
+#define RETRY_TIMES 30
 #define RETRY_TIME 2
 
 #define SERVER_READY SIGUSR1
@@ -25,12 +25,12 @@ void	ping_handler(int signum, siginfo_t *info, void *context)
 	(void)signum, (void)context, (void)info;
 	if (info->si_pid == getpid())
 	{
-		fprintf(stderr, "Error: Own process\n");
+		ft_dprintf(2, "Error: Own process\n");
 		exit(1);
 	}
 	if (info->si_pid != g_server.pid)
 	{
-		fprintf(stderr, "Error: Unexpected pid in ping_handler\n");
+		ft_dprintf(2, "Error: Unexpected pid in ping_handler\n");
 		return ;
 	}
 	if (signum == SERVER_READY)
@@ -47,7 +47,7 @@ void	handle_timeouts(int pid)
 	while (++i < RETRY_TIMES)
 	{
 		kill(pid, SIGUSR1);
-		printf("Waiting response from server\n");
+		ft_printf("Waiting response from server\n");
 		sleep(RETRY_TIME);
 		if (g_server.is_ready == 1)
 			break ;
@@ -65,13 +65,6 @@ int	ping(int pid)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	handle_timeouts(pid);
-	printf("Server ready: %d\n", g_server.is_ready);
+	ft_printf("Server ready: %d\n", g_server.is_ready);
 	return (g_server.is_ready);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	if (argc == 2)
-// 		ping(atoi(argv[1]));
-// 	return (0);
-// }
