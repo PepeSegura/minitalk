@@ -1,15 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
+/*   shared.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 18:50:57 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/18 18:51:00 by psegura-         ###   ########.fr       */
+/*   Created: 2024/01/26 17:02:59 by psegura-          #+#    #+#             */
+/*   Updated: 2024/01/27 10:01:30 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef SHARED_H
+# define SHARED_H
 
+# include "../libft/inc/libft.h"
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
 
+void	print_bytes(char *str);
+
+char	*str_to_binary(char *str);
+char	*int_to_binary(int nbr, int size);
+
+char	*binary_to_str(char *binary);
+int		binary_to_int(char *binary);
+
+void	ft_print_error(char *error_msg);
+
+#endif

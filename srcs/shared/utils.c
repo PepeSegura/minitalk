@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 17:35:10 by psegura-          #+#    #+#             */
-/*   Updated: 2023/07/01 16:01:42 by psegura-         ###   ########.fr       */
+/*   Created: 2023/09/19 16:25:49 by psegura-          #+#    #+#             */
+/*   Updated: 2024/01/26 17:46:30 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shared.h"
 
-/**
- * It returns the length of a string
- * 
- * @param str This is the string that we want to find the length of.
- * 
- * @return The length of the string. 
- */
-int	ft_strlen(const char *str)
+void	print_bytes(char *str)
 {
 	int	i;
 
+	write(1, "binary text:", 12);
 	i = 0;
 	while (str[i])
+	{
+		if (i % 8 == 0)
+			write(1, " ", 1);
+		write(1, &str[i], 1);
 		i++;
-	return (i);
+	}
+	write(1, "\n", 1);
 }

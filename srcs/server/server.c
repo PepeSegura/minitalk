@@ -5,155 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 20:45:05 by psegura-          #+#    #+#             */
-/*   Updated: 2023/05/18 18:14:43 by psegura-         ###   ########.fr       */
+/*   Created: 2024/01/27 10:01:51 by psegura-          #+#    #+#             */
+/*   Updated: 2024/02/07 21:40:24 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "server.h"
 
-t_server	g_s;
-
-// unsigned char	binary_to_ascii(char *binary_string)
-// {
-// 	char	chunk[9];
-// 	int		ascii_val;
-
-// 	strncpy(chunk, binary_string, 8);
-// 	chunk[8] = '\0';
-// 	ascii_val = strtol(chunk, NULL, 2);
-// 	return ((unsigned char)ascii_val);
-// }
-
-char	*binary_to_ascii(char *binary_string)
+char	set_input(int signum)
 {
-	int		len;
-	int		num_chunks;
-	char	*ascii_string;
-	int		i;
-	char	chunk[9];
-	int		j;
-	int		index;
-	int		ascii_val;
-
-	len = strlen(binary_string);
-	num_chunks = len / 8;
-	if (len % 8 != 0)
-	{
-		num_chunks++;
-	}
-	ascii_string = (char *)malloc(num_chunks + 1);
-	ascii_string[num_chunks] = '\0';
-	for (i = 0; i < num_chunks; i++)
-	{
-		for (j = 0; j < 8; j++)
-		{
-			index = i * 8 + j;
-			if (index < len)
-			{
-				chunk[j] = binary_string[index];
-			}
-			else
-			{
-				chunk[j] = '0';
-			}
-		}
-		chunk[8] = '\0';
-		ascii_val = strtol(chunk, NULL, 2);
-		ascii_string[i] = (char)ascii_val;
-	}
-	return (ascii_string);
+	if (signum == SIGUSR1)
+		return ('0');
+	else
+		return ('1');
 }
 
-void	print_pid(void)
+void	store_signals_for_header(int *i, char input)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_putstr_fd("PID_SERVER: ", 1);
-	ft_putnbr_fd(pid, 1);
-	ft_putendl_fd("", 1);
+	g_client.msg.header[(*i)] = input;
+	(*i)++;
 }
 
-void	keep_server_up(void)
+void	memory_reserve_to_store_signals(int *i)
 {
-	while (1)
-		sleep(1);
+	g_client.msg.size_message = binary_to_int(g_client.msg.header);
+	ft_memset(&g_client.msg.header, 0, sizeof(g_client.msg.header));
+	g_client.msg.message = ft_calloc((g_client.msg.size_message + 1), 1);
+	if (g_client.msg.message == NULL)
+		ft_print_error("Malloc_failed");
+	(*i)++;
 }
 
-void	handle_sigusr1(int sig)
+void	store_signals(int *i, char input)
 {
-	if (sig == SIGUSR1)
-	{
-		if (g_s.len < 32)
-		{
-			g_s.size_next[g_s.len] = '0';
-			g_s.len++;
-		}
-		if (g_s.len == 32)
-		{
-			g_s.int_next = binaryToInt(g_s.size_next);
-			memset(g_s.size_next, 0, sizeof(g_s.size_next));
-			g_s.msg = malloc((g_s.int_next + 1) * sizeof(char));
-			if (!g_s.msg)
-				exit(1);
-			g_s.len++;
-		}
-		else if (g_s.len >= 32 && g_s.len <= g_s.int_next + 32)
-		{
-			g_s.msg[g_s.len - 33] = '0';
-			g_s.len++;
-		}
-		if (g_s.len > g_s.int_next + 32)
-		{
-			g_s.msg[g_s.len - 33] = '\0';
-			g_s.len = 0;
-			g_s.result = binary_to_ascii(g_s.msg);
-			write(1, g_s.result, g_s.int_next / 8);
-			write(1, "\n", 1);
-		}
-	}
+	g_client.msg.message[(*i) - 33] = input;
+	(*i)++;
 }
 
-void	handle_sigusr2(int sig)
+void	create_and_print_final_message(int *i)
 {
-	if (sig == SIGUSR2)
-	{
-		if (g_s.len < 32)
-		{
-			g_s.size_next[g_s.len] = '1';
-			g_s.len++;
-		}
-		if (g_s.len == 32)
-		{
-			g_s.int_next = binaryToInt(g_s.size_next);
-			memset(g_s.size_next, 0, sizeof(g_s.size_next));
-			g_s.msg = malloc((g_s.int_next + 1) * sizeof(char));
-			if (!g_s.msg)
-				exit(1);
-			g_s.len++;
-		}
-		else if (g_s.len >= 32 && g_s.len <= g_s.int_next + 32)
-		{
-			g_s.msg[g_s.len - 33] = '1';
-			g_s.len++;
-		}
-		if (g_s.len > g_s.int_next + 32)
-		{
-			g_s.msg[g_s.len - 33] = '\0';
-			g_s.len = 0;
-			g_s.result = binary_to_ascii(g_s.msg);
-			write(1, g_s.result, g_s.int_next / 8);
-			write(1, "\n", 1);
-		}
-	}
-}
+	char	*hole_msg;
 
-int	main(void)
-{
-	signal(SIGUSR1, handle_sigusr1);
-	signal(SIGUSR2, handle_sigusr2);
-	print_pid();
-	keep_server_up();
-	return (0);
+	hole_msg = binary_to_str(g_client.msg.message);
+	free(g_client.msg.message);
+	write(1, hole_msg, g_client.msg.size_message / 8);
+	write(1, "\n", 1);
+	g_client.actual_pid = 0;
+	free(hole_msg);
+	(*i) = 0;
 }

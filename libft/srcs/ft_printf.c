@@ -6,75 +6,77 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 01:16:38 by psegura-          #+#    #+#             */
-/*   Updated: 2022/10/30 23:00:24 by psegura-         ###   ########.fr       */
+/*   Updated: 2023/12/24 21:32:24 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/**
- * It takes a format character and a va_list, and returns the number of
- * characters printed
- * 
- * @param args the va_list that contains all the arguments passed
- * to the function.
- * @param format the format specifier
- * 
- * @return The number of characters printed.
- */
-static int	ft_format(va_list args, char format)
+static int	ft_format(int fd, va_list args, char format)
 {
 	int	dest;
 
 	dest = 0;
 	if (format == '%')
-		dest += ft_putchar_printf('%');
+		dest += ft_putchar_printf(fd, '%');
 	else if (format == 'c')
-		dest += ft_putchar_printf(va_arg(args, int));
+		dest += ft_putchar_printf(fd, va_arg(args, int));
 	else if (format == 's')
-		dest += ft_putstr_printf(va_arg(args, char *));
+		dest += ft_putstr_printf(fd, va_arg(args, char *));
 	else if (format == 'p')
-		dest += ft_pointer(va_arg(args, void *));
+		dest += ft_pointer(fd, va_arg(args, void *));
 	else if (format == 'd' || format == 'i')
-		dest += ft_putnbr(va_arg(args, int));
+		dest += ft_putnbr(fd, va_arg(args, int));
 	else if (format == 'u')
-		dest += ft_putnbr_base(va_arg(args, int), "0123456789");
+		dest += ft_putnbr_base(fd, va_arg(args, int), "0123456789");
 	else if (format == 'x')
-		dest += ft_putnbr_base(va_arg(args, int), "0123456789abcdef");
+		dest += ft_putnbr_base(fd, va_arg(args, int), "0123456789abcdef");
 	else if (format == 'X')
-		dest += ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF");
+		dest += ft_putnbr_base(fd, va_arg(args, int), "0123456789ABCDEF");
 	else
-		dest += ft_putstr_printf(va_arg(args, char *));
+		dest += ft_putstr_printf(fd, va_arg(args, char *));
 	return (dest);
 }
 
-/**
- * The function ft_printf() takes a string and a variable number of arguments,
- and returns the number of characters printed
- * 
- * @param string The string to be printed.
- * 
- * @return The number of characters printed.
- */
-int	ft_printf(char const *string, ...)
+static int	ft_xprintf(int fd, char const *string, va_list args)
 {
-	va_list	args;
-	int		d_type;
-	int		i;
+	int	count;
+	int	i;
 
-	d_type = 0;
+	count = 0;
 	i = 0;
-	va_start(args, string);
 	while (string[i] != '\0')
 	{
 		if (string[i] == '%')
 		{
-			d_type = d_type + ft_format(args, string[i + 1]);
+			count = count + ft_format(fd, args, string[i + 1]);
 			i++;
 		}
 		else
-			d_type = d_type + write(1, &string[i], 1);
+			count = count + write(fd, &string[i], 1);
 		i++;
 	}
-	return (d_type);
+	return (count);
+}
+
+int	ft_printf(char const *format, ...)
+{
+	va_list	args;
+	int		count;
+
+	va_start(args, format);
+	count = ft_xprintf(1, format, args);
+	va_end(args);
+	return (count);
+}
+
+int	ft_dprintf(int fd, char const *format, ...)
+{
+	va_list	args;
+	int		count;
+
+	va_start(args, format);
+	count = ft_xprintf(fd, format, args);
+	va_end(args);
+	return (count);
 }
