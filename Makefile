@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/02/07 19:40:32 by psegura-         ###   ########.fr        #
+#    Updated: 2024/02/08 13:05:58 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ LIB = libft/libft.a
 
 CC = gcc
 
-CFLAGS	 = -Wall -Wextra -Werror -g3 -fsanitize=address,leak
+CFLAGS	 = -Wall -Wextra -Werror #-g3 -fsanitize=address,leak
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 

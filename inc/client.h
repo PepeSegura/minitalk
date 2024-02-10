@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:19:04 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/07 21:44:49 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:04:06 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 
 typedef struct s_global
 {
+	int						sig_count;
 	int						pid;
 	volatile sig_atomic_t	is_ready;
 }	t_global;

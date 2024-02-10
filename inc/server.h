@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/07 21:41:37 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/10 11:18:47 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct s_msg
 
 typedef struct s_global
 {
-	int						client_pid;
-	int						actual_pid;
-	volatile sig_atomic_t	is_ready;
-	t_msg					msg;
+	int		client_pid;
+	int		actual_pid;
+	t_msg	msg;
 }	t_global;
 
 extern t_global	g_client;

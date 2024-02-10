@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/07 21:43:30 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:04:22 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	if (signum == SIGUSR2)
 	{
 		g_server.is_ready = 1;
+		g_server.sig_count++;
 	}
 }
 

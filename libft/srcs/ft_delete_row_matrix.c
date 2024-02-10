@@ -6,58 +6,52 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 01:48:53 by psegura-          #+#    #+#             */
-/*   Updated: 2024/01/02 16:44:44 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:21:21 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-typedef struct s_count
+char	**ft_delete_row_matrix(char **matrix, int delete)
 {
-	int	i;
-	int	j;
-	int	len;
-}		t_count;
-
-char	**allocate_matrix(char **matrix, int delete, int *len)
-{
-	char	**aux;
+	char	**new_matrix;
+	int		len_matrix;
+	int		i;
 
 	if (!matrix)
 		return (NULL);
-	*(len) = ft_len_matrix(matrix);
-	if (delete > *(len))
+	len_matrix = ft_len_matrix(matrix);
+	if (delete < 0 || delete > len_matrix)
 		return (matrix);
-	aux = malloc(sizeof(char *) * *(len));
-	if (!aux)
+	new_matrix = ft_calloc(ft_len_matrix(matrix), sizeof(char *));
+	if (!new_matrix)
 		return (NULL);
-	return (aux);
-}
-
-char	**ft_delete_row_matrix(char **matrix, int delete)
-{
-	char	**aux;
-	t_count	c;
-
-	ft_memset(&c, 0, sizeof(t_count));
-	aux = allocate_matrix(matrix, delete, &c.len);
-	if (!aux)
-		return (NULL);
-	if (delete > c.len)
-		return (matrix);
-	while (c.i < c.len)
+	i = 0;
+	int j = 0;
+	while (matrix[j])
 	{
-		if (c.i != delete)
-		{
-			aux[c.j] = malloc(sizeof(char) * (ft_strlen(matrix[c.i]) + 1));
-			if (!aux[c.j])
-				return (ft_free_matrix(aux), NULL);
-			ft_strncpy(aux[c.j], matrix[c.i], ft_strlen(matrix[c.i]) + 1);
-			c.j++;
-		}
-		c.i++;
+		if (i == delete)
+			j++;
+		new_matrix[i] = matrix[j];
+		i++;
+		j++;
 	}
-	aux[c.j] = NULL;
-	ft_free_matrix(matrix);
-	return (aux);
+	free(matrix);
+	return (new_matrix);
 }
+
+// int main(void)
+// {
+// 	char **aux = ft_calloc(sizeof(char *), 4);
+
+// 	aux[0] = ft_strdup("hola");
+// 	aux[1] = ft_strdup("que");
+// 	aux[2] = ft_strdup("tal");
+
+// 	ft_print_matrix(aux, "old");
+
+// 	char **new = ft_delete_row_matrix(aux, 3);
+
+// 	ft_print_matrix(new, "new");
+// }
+
