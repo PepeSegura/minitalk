@@ -6,17 +6,18 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 01:48:53 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/10 16:21:21 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:00:11 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "`libft.h"
 
 char	**ft_delete_row_matrix(char **matrix, int delete)
 {
 	char	**new_matrix;
 	int		len_matrix;
 	int		i;
+	int		j;
 
 	if (!matrix)
 		return (NULL);
@@ -27,7 +28,7 @@ char	**ft_delete_row_matrix(char **matrix, int delete)
 	if (!new_matrix)
 		return (NULL);
 	i = 0;
-	int j = 0;
+	j = 0;
 	while (matrix[j])
 	{
 		if (i == delete)
@@ -54,4 +55,3 @@ char	**ft_delete_row_matrix(char **matrix, int delete)
 
 // 	ft_print_matrix(new, "new");
 // }
-
