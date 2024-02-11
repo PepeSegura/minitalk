@@ -6,11 +6,11 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 01:48:53 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/10 20:00:11 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/11 10:43:18 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "`libft.h"
+#include "libft.h"
 
 char	**ft_delete_row_matrix(char **matrix, int delete)
 {
