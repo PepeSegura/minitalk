@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/10 15:32:31 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:15:42 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	keep_server_up(void)
 	}
 }
 
-int	lost_signal(int si_pid, int signum, int *i)
+int	lost_signal(int si_pid, int signum, int *i, void *context)
 {
+	(void)context;
 	if (si_pid == 0 && (signum == SIGUSR1 || signum == SIGUSR2))
 	{
 		ft_printf("i: [%d] client: %d with signal: %d\n", (*i), si_pid, signum);
@@ -37,8 +38,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	static int	i;
 	char		input;
 
-	(void)context;
-	info->si_pid = lost_signal(info->si_pid, signum, &i);
+	info->si_pid = lost_signal(info->si_pid, signum, &i, context);
 	if (info->si_pid == getpid())
 		ft_print_error("Own process");
 	g_client.client_pid = info->si_pid;
@@ -47,6 +47,8 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		pong(g_client.client_pid);
 		return ;
 	}
+	if (g_client.actual_pid != g_client.client_pid)
+		return ;
 	input = set_input(signum);
 	if (i < HEADER_SIZE)
 		store_signals_for_header(&i, input);
