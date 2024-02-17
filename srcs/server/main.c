@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/14 20:15:42 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:40:07 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(void)
 
 	ft_memset(&g_client, 0, sizeof(t_global));
 	server_pid = getpid();
-	ft_printf("Server PID: %d\n", server_pid);
+	ft_dprintf(1, "Server PID: %d\n", server_pid);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = signal_handler;
 	sigaction(SIGUSR1, &sa, NULL);
