@@ -22,15 +22,15 @@ void	keep_server_up(void)
 	}
 }
 
-int	lost_signal(int si_pid, int signum, int *i, void *context)
+int	lost_signal(int s_si_pid, int signum, int *i, void *context)
 {
 	(void)context;
-	if (si_pid == 0 && (signum == SIGUSR1 || signum == SIGUSR2))
+	if (s_si_pid == 0 && (signum == SIGUSR1 || signum == SIGUSR2))
 	{
-		ft_printf("i: [%d] client: %d with signal: %d\n", (*i), si_pid, signum);
-		si_pid = g_client.actual_pid;
+		ft_printf("i: [%d] client: %d with signal: %d\n", (*i), s_si_pid, signum);
+		s_si_pid = g_client.actual_pid;
 	}
-	return (si_pid);
+	return (s_si_pid);
 }
 
 void	signal_handler(int signum, siginfo_t *info, void *context)

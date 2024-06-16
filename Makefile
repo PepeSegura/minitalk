@@ -55,7 +55,7 @@ LIB = libft/libft.a
 
 CC = gcc
 
-CFLAGS	 = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address,leak
+CFLAGS	 = -Wall -Wextra -Werror #-O3 #-g3 -fsanitize=address,leak
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 

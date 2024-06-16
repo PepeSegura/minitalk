@@ -56,7 +56,7 @@ void	send_signals(char *str, t_info *data)
 		if (str[i] == '1')
 			send_signal(data->server_pid, SIGUSR2);
 		i++;
-		usleep(200);
+		sleep(1);
 	}
 }
 
