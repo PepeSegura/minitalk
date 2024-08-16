@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
+#    By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/02/11 11:18:55 by psegura-         ###   ########.fr        #
+#    Updated: 2024/08/17 00:00:49 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,6 @@ NAME_S = server
 
 SHARED =					\
 			errors.c		\
-			utils.c			\
-			binary_to_x.c	\
-			x_to_binary.c	\
 
 SRCS_SHARED = $(addprefix shared/, $(SHARED))
 
@@ -42,7 +39,6 @@ SRCS_C = $(addprefix srcs/, $(CLIENT))
 
 SERVER =							\
 			server/main.c			\
-			server/server.c			\
 			server/pong.c			\
 			$(SRCS_SHARED)			\
 
@@ -55,7 +51,7 @@ LIB = libft/libft.a
 
 CC = gcc
 
-CFLAGS	 = -Wall -Wextra -Werror #-O3 #-g3 -fsanitize=address,leak
+CFLAGS	 = -Wall -Wextra -Werror  -g3 -fsanitize=address,leak #-O3
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 

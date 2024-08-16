@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/10 11:18:47 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/16 23:59:35 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_H
 # define SERVER_H
 
-# include "shared.h"
+#include "shared.h"
 
 # define HEADER_SIZE 32
 # define SIGNAL_RECEIVED SIGUSR2
@@ -29,17 +29,13 @@ typedef struct s_global
 {
 	int		client_pid;
 	int		actual_pid;
+	int		getting_header;
+	int		getting_msg;
 	t_msg	msg;
 }	t_global;
 
 extern t_global	g_client;
 
 int		pong(int pid);
-
-char	set_input(int signum);
-void	store_signals_for_header(int *i, char input);
-void	memory_reserve_to_store_signals(int *i);
-void	store_signals(int *i, char input);
-void	create_and_print_final_message(int *i);
 
 #endif
