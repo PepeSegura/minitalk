@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/08/16 23:53:54 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:19:07 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,34 +70,26 @@ void	handle_msg(int *i, int signum)
 	static int	char_value;
 	static int	msg_pos;
 
-	// Update char_value with the new bit
     if (*i % 8 < 8)
 	{
         char_value |= (bit_value << (7 - (*i % 8)));
         (*i)++;
     }
-
-    // When 8 bits are collected, print the character and reset size_message
     if (*i % 8 == 0)
 	{
 		g_client.msg.message[msg_pos] = char_value;
-        // printf("adding: [%c] to pos: [%d]\n", (char)char_value, msg_pos);
         char_value = 0;
 		msg_pos++;
     }
-
 	if (*i / 8 == g_client.msg.size_message)
 	{
 		printf("message: [%s]\n", g_client.msg.message);
 		free(g_client.msg.message);
-		g_client.getting_msg = 0;
+		ft_bzero(&g_client, sizeof(g_client));
 		g_client.getting_header = 1;
-		g_client.msg.size_message = 0;
-		g_client.actual_pid = 0;
 		(*i) = 0;
 		msg_pos = 0;
 	}
-	// kill(g_client.client_pid, SIGNAL_RECEIVED);
 }
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
@@ -120,9 +112,8 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		handle_header(&i, signum);
 	else if (g_client.getting_msg == 1)
 		handle_msg(&i, signum);
-	// printf("pid: [%d] signal: [%d]\n", info->si_pid, signum);
-	// if (signum == SIGUSR1 || signum == SIGUSR2)
-	// 	kill(g_client.client_pid, SIGNAL_RECEIVED);
+	if (signum == SIGUSR1 || signum == SIGUSR2)
+		kill(g_client.client_pid, SIGNAL_RECEIVED);
 }
 
 int	main(void)
@@ -131,7 +122,6 @@ int	main(void)
 	pid_t				server_pid;
 
 	ft_memset(&g_client, 0, sizeof(t_global));
-	g_client.getting_header = 1;
 	server_pid = getpid();
 	ft_dprintf(1, "Server PID: %d\n", server_pid);
 	sa.sa_flags = SA_SIGINFO;

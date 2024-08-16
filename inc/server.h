@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/08/16 23:59:35 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:05:31 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 typedef struct s_msg
 {
-	char	header[HEADER_SIZE + 1];
 	int		size_message;
 	char	*message;
 }	t_msg;

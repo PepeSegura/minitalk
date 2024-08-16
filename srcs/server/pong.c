@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pong.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 09:56:37 by psegura-          #+#    #+#             */
-/*   Updated: 2024/02/10 15:32:22 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:03:56 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	pong(int pid)
 {
 	kill(pid, SERVER_READY);
 	g_client.actual_pid = pid;
+	g_client.getting_header = 1;
 	return (EXIT_SUCCESS);
 }

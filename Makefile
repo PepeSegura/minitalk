@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/08/17 00:00:49 by psegura-         ###   ########.fr        #
+#    Updated: 2024/08/17 00:15:24 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,9 @@ OBJS_S = $(SRCS_S:%.c=objs/%.o)
 
 LIB = libft/libft.a
 
-CC = gcc
+CC = cc
 
-CFLAGS	 = -Wall -Wextra -Werror  -g3 -fsanitize=address,leak #-O3
+CFLAGS	 = -Wall -Wextra -Werror  #-g3 -fsanitize=address,leak #-O3
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 
@@ -87,8 +87,5 @@ re:: all
 
 debug:: CFLAGS += -g3 -fsanitize=address#,leak
 debug:: re
-
-norma:
-	@echo 6e6f726d696e65747465207372637320696e6320313e2f6465762f6e756c6c3b206966205b5b20243f202d65712030205d5d3b207468656e206e6f726d696e65747465207372637320696e633b20656c7365206e6f726d696e65747465207372637320696e63207c206772657020274572726f7227203b206669 | xxd -r -p | zsh
 
 .PHONY: all clean fclean re norma debug
