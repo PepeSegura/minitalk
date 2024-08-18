@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:24:07 by psegura-          #+#    #+#             */
-/*   Updated: 2024/08/17 00:15:56 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:34:39 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	send_signals(void *data, size_t bit_length, t_info *info)
 		else
 			send_signal(info->server_pid, CHAR_0);
         i--;
-		usleep(10 * 1000);
+		usleep(1000 * 1000);
 	}
 }
 

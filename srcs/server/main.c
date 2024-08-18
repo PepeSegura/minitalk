@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/08/17 00:19:07 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:37:06 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		handle_header(&i, signum);
 	else if (g_client.getting_msg == 1)
 		handle_msg(&i, signum);
-	if (signum == SIGUSR1 || signum == SIGUSR2)
+	if (g_client.client_pid != 0 && (signum == SIGUSR1 || signum == SIGUSR2))
 		kill(g_client.client_pid, SIGNAL_RECEIVED);
 }
 
