@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 18:41:57 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/23 21:27:58 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,29 @@
 
 t_global	g_client;
 
+int		handle_timeout(void)
+{
+	return (0);
+}
+
+void	check_clean_status(void)
+{
+	if (g_client.client_pid == 0)
+		return ;
+	printf("Checking exit status\n");
+	printf("--------------\n");
+	printf("client_pid:     %d\n", g_client.client_pid);
+	printf("actual_pid:     %d\n", g_client.actual_pid);
+	printf("getting_header: %d\n", g_client.getting_header);
+	printf("getting_msg:    %d\n", g_client.getting_msg);
+	printf("--------------\n");
+}
+
 void	keep_server_up(void)
 {
 	while (1)
 	{
+		check_clean_status();
 		sleep(1);
 	}
 }
