@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 18:40:26 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:40:50 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ typedef struct s_msg
 
 typedef struct s_global
 {
-	int		client_pid;
-	int		actual_pid;
-	int		getting_header;
-	int		getting_msg;
+	volatile sig_atomic_t		client_pid;
+	volatile sig_atomic_t		actual_pid;
+	volatile sig_atomic_t		getting_header;
+	volatile sig_atomic_t		getting_msg;
+	volatile sig_atomic_t		client_activity;
+	volatile sig_atomic_t		sig_count;
+	char	char_value;
+	volatile sig_atomic_t		msg_pos;
 	t_msg	msg;
 }	t_global;
 

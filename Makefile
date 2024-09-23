@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
+#    By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/09/23 18:45:00 by psegura-         ###   ########.fr        #
+#    Updated: 2024/09/23 23:28:19 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ LIB = libft/libft.a
 
 CC = cc
 
-CFLAGS	 = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
+CFLAGS	 = -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 

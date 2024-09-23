@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 21:27:58 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:48:42 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,40 @@
 
 t_global	g_client;
 
-int		handle_timeout(void)
+int	check_clean_status(void)
 {
-	return (0);
-}
+	volatile sig_atomic_t has_client = 0;
+	int i = 0;
 
-void	check_clean_status(void)
-{
-	if (g_client.client_pid == 0)
-		return ;
-	printf("Checking exit status\n");
-	printf("--------------\n");
-	printf("client_pid:     %d\n", g_client.client_pid);
-	printf("actual_pid:     %d\n", g_client.actual_pid);
-	printf("getting_header: %d\n", g_client.getting_header);
-	printf("getting_msg:    %d\n", g_client.getting_msg);
-	printf("--------------\n");
+	if (g_client.actual_pid == 0)
+	{
+		has_client = 0;
+		sleep (1);
+		return (1);
+	}
+	has_client = 1;
+	while (has_client && i < 10)
+	{
+		sleep(1);
+		if (g_client.client_activity)
+        {
+			g_client.client_activity = 0;
+            i = 0;
+        }
+		i++;
+	}
+	if (i == 10)
+	{
+		g_client.client_activity = 0;
+		if (g_client.msg.message != NULL)
+		{
+			write(2, "There was a problem with the last client\n", 42);
+			free(g_client.msg.message);
+			ft_bzero(&g_client, sizeof(g_client));
+			g_client.getting_header = 1;
+		}
+	}
+	return (0);
 }
 
 void	keep_server_up(void)
@@ -37,11 +55,10 @@ void	keep_server_up(void)
 	while (1)
 	{
 		check_clean_status();
-		sleep(1);
 	}
 }
 
-inline int	lost_signal(int s_si_pid, int signum, int *i, void *context)
+static int	lost_signal(int s_si_pid, int signum, int *i, void *context)
 {
 	(void)context;
 	if (s_si_pid == 0 && (signum == SIGUSR1 || signum == SIGUSR2))
@@ -68,6 +85,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	}
 	if (g_client.actual_pid != g_client.client_pid)
 		return ;
+	g_client.client_activity = 1;
 	if (g_client.getting_header == 1)
 		handle_header(&i, signum);
 	else if (g_client.getting_msg == 1)
@@ -79,18 +97,18 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 int	main(void)
 {
 	struct sigaction	sa;
-	sigset_t			sigset;
+	// sigset_t			sigset;
 	pid_t				server_pid;
 
 	ft_memset(&g_client, 0, sizeof(t_global));
 	server_pid = getpid();
 	ft_printf("Server PID: %d\n", server_pid);
-	sigemptyset(&sigset);
-	sigaddset(&sigset, SIGUSR1);
-	sigaddset(&sigset, SIGUSR2);
+	// sigemptyset(&sigset);
+	// sigaddset(&sigset, SIGUSR1);
+	// sigaddset(&sigset, SIGUSR2);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = signal_handler;
-	sa.sa_mask = sigset;
+	// sa.sa_mask = sigset;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	keep_server_up();
