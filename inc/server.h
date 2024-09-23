@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 13:11:22 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:40:26 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ typedef struct s_global
 extern t_global	g_client;
 
 int		pong(int pid);
-
+void	handle_msg(int *i, int signum);
+void	handle_header(int *i, int signum);
 #endif

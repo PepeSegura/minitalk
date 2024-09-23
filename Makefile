@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/09/23 13:22:00 by psegura-         ###   ########.fr        #
+#    Updated: 2024/09/23 18:45:00 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ MAKEFLAGS += --no-print-directory
 
 ### Colors ###
 
-#RESET	=	\033c
 GREEN	=	\033[1;32m
 RED		=	\033[0;31m
 CYAN	=	\033[0;36m
@@ -52,7 +51,7 @@ LIB = libft/libft.a
 
 CC = cc
 
-CFLAGS	 = -Wall -Wextra -Werror  -O3 -g3 -fsanitize=address
+CFLAGS	 = -Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 
