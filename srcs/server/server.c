@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_matrix.c                                  :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 02:42:16 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 11:41:47 by psegura-         ###   ########.fr       */
+/*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
+/*   Updated: 2024/09/23 12:59:48 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "server.h"
 
-void	ft_print_matrix(char **matrix, char *str)
-{
-	int	i;
+// t_global	g_client;
 
-	i = 0;
-	while (matrix[i])
-	{
-		ft_printf("%s [%d] -> [%s]\n", str, i, matrix[i]);
-		i++;
-	}
-}

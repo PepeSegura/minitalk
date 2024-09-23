@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+         #
+#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 16:12:27 by psegura-          #+#    #+#              #
-#    Updated: 2024/08/17 00:15:24 by psegura-         ###   ########.fr        #
+#    Updated: 2024/09/23 13:22:00 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS_C = $(addprefix srcs/, $(CLIENT))
 
 SERVER =							\
 			server/main.c			\
+			server/server.c			\
 			server/pong.c			\
 			$(SRCS_SHARED)			\
 
@@ -51,7 +52,7 @@ LIB = libft/libft.a
 
 CC = cc
 
-CFLAGS	 = -Wall -Wextra -Werror  #-g3 -fsanitize=address,leak #-O3
+CFLAGS	 = -Wall -Wextra -Werror  -O3 -g3 -fsanitize=address
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 
