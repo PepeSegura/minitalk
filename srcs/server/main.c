@@ -6,11 +6,14 @@
 /*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 23:48:42 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:55:36 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
+
+# define TIMEOUT 5
+# define SLEEP_TIME 500000
 
 t_global	g_client;
 
@@ -26,9 +29,9 @@ int	check_clean_status(void)
 		return (1);
 	}
 	has_client = 1;
-	while (has_client && i < 10)
+	while (has_client && i < TIMEOUT)
 	{
-		sleep(1);
+		usleep(SLEEP_TIME);
 		if (g_client.client_activity)
         {
 			g_client.client_activity = 0;
@@ -36,7 +39,7 @@ int	check_clean_status(void)
         }
 		i++;
 	}
-	if (i == 10)
+	if (i == TIMEOUT)
 	{
 		g_client.client_activity = 0;
 		if (g_client.msg.message != NULL)
