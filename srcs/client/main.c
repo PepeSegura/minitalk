@@ -6,11 +6,13 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:52 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 12:16:15 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:23:27 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
+
+t_global	g_server;
 
 int	main(int argc, char **argv)
 {

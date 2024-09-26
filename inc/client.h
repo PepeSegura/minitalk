@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:19:04 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 12:15:33 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:09:48 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define CHAR_0 SIGUSR1
 # define CHAR_1 SIGUSR2
 
-typedef struct s_data
+typedef struct s_client
 {
 	pid_t	client_pid;
 	pid_t	server_pid;

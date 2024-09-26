@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:23:44 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 23:40:50 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:19:29 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,21 @@ typedef struct s_msg
 
 typedef struct s_global
 {
-	volatile sig_atomic_t		client_pid;
-	volatile sig_atomic_t		actual_pid;
-	volatile sig_atomic_t		getting_header;
-	volatile sig_atomic_t		getting_msg;
-	volatile sig_atomic_t		client_activity;
-	volatile sig_atomic_t		sig_count;
-	char	char_value;
-	volatile sig_atomic_t		msg_pos;
-	t_msg	msg;
+	volatile sig_atomic_t	client_pid;
+	volatile sig_atomic_t	actual_pid;
+	volatile sig_atomic_t	getting_header;
+	volatile sig_atomic_t	getting_msg;
+	volatile sig_atomic_t	client_activity;
+	volatile sig_atomic_t	sig_count;
+	char					char_value;
+	volatile sig_atomic_t	msg_pos;
+	t_msg					msg;
 }	t_global;
 
 extern t_global	g_client;
 
+void	keep_server_up(void);
 int		pong(int pid);
-void	handle_msg(int *i, int signum);
-void	handle_header(int *i, int signum);
+void	handle_msg(int signum);
+void	handle_header(int signum);
 #endif

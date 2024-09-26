@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 23:36:31 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:15:57 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_bit_value(int signum)
 	return (1);
 }
 
-void	memory_reserve_to_store_signals(int *i)
+void	memory_reserve_to_store_signals(void)
 {
 	ft_printf("SIZE_MSG: [%d]\n", g_client.msg.size_message);
 	g_client.msg.message = malloc((g_client.msg.size_message + 1) * 1);
@@ -28,20 +28,20 @@ void	memory_reserve_to_store_signals(int *i)
 	g_client.getting_header = 0;
 	g_client.getting_msg = 1;
 	g_client.sig_count = 0;
-	(*i) = 0;
 }
 
-void	handle_header(int *i, int signum)
+void	handle_header(int signum)
 {
 	const int	bit_value = get_bit_value(signum);
 
 	if (g_client.sig_count < HEADER_SIZE)
 	{
-		g_client.msg.size_message |= (bit_value << (HEADER_SIZE - 1 - g_client.sig_count));
+		g_client.msg.size_message |= \
+			(bit_value << (HEADER_SIZE - 1 - g_client.sig_count));
 		g_client.sig_count++;
 	}
 	if (g_client.sig_count == HEADER_SIZE)
-		memory_reserve_to_store_signals(i);
+		memory_reserve_to_store_signals();
 }
 
 static void	print_msg(void)
@@ -51,12 +51,9 @@ static void	print_msg(void)
 	write(1, "\n", 1);
 }
 
-void	handle_msg(int *i, int signum)
+void	handle_msg(int signum)
 {
-	(void)(*i);
 	const int	bit_value = get_bit_value(signum);
-	// static int	g_client.char_value;
-	// static int	g_client.msg_pos;
 
 	if (g_client.sig_count % 8 < 8)
 	{
@@ -76,7 +73,5 @@ void	handle_msg(int *i, int signum)
 		g_client.msg.message = NULL;
 		ft_bzero(&g_client, sizeof(g_client));
 		g_client.getting_header = 1;
-		g_client.sig_count = 0;
-		g_client.msg_pos = 0;
 	}
 }

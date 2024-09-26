@@ -6,20 +6,18 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:05:47 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/23 13:36:27 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:20:38 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-#define RETRY_TIMES 5
+#define RETRY_TIMES 10
 #define RETRY_TIME 1
 #define RETRY_INTERVALS 20
 
 #define SERVER_READY SIGUSR1
 #define SERVER_BUSY SIGUSR2
-
-t_global	g_server;
 
 void	ping_handler(int signum, siginfo_t *info, void *context)
 {
