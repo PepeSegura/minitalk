@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:53:49 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/26 16:15:57 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:54:55 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	handle_msg(int signum)
 	if (g_client.sig_count / 8 == g_client.msg.size_message)
 	{
 		print_msg();
+		kill(g_client.client_pid, SIGUSR1);
 		free(g_client.msg.message);
 		g_client.msg.message = NULL;
 		ft_bzero(&g_client, sizeof(g_client));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:19:04 by psegura-          #+#    #+#             */
-/*   Updated: 2024/09/26 19:09:48 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:34:28 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_global
 {
 	int						pid;
 	volatile sig_atomic_t	is_ready;
+	volatile sig_atomic_t	ready_to_proceed;
 }	t_global;
 
 extern t_global	g_server;
