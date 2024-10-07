@@ -32,6 +32,10 @@ needing to restart.
 UNIX signals.
 - You can only use these two signals: **SIGUSR1** and **SIGUSR2**.
 
+```
+./client $(xclip -out) $(python3 -c 'print("A" * 100000)')
+```
+
 ## :bangbang: Bonus part
 
 - The server acknowledges every message received by sending back a signal to the
